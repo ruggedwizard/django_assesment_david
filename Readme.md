@@ -168,3 +168,51 @@ DELETE AN BUDGET RECORD
 SEND A DELETE REQUEST TO :
 {{BASE_URL}}/budget/budget_id/
 ```
+### JWT AUTHENTICATION PROCESS
+The JWT AUTHENTICATION Takes the Username, and User ID and saves it as a payload data, to generate an Access token and a refresh token
+```
+ACCESS TOKEN
+A POST REQUEST TO THIS ENDPOINT:
+{{BASE_URL}}/api/token/
+```
+WITH
+
+```
+example input:
+{
+    "username":"example_username",
+    "password":"example_password"
+}
+```
+
+GIVES
+```
+example output:
+{
+    "refresh": "example_refresh_token",
+    "access": "example_access_token"
+}
+```
+the access tokens spans for 60 minutues to allow user navigate through the API Routes, after 60 minuetes its becomes void and we use the refresh token 
+to get another access token, which will span for another 60 minutes. 
+
+### REFRESH THE TOKEN 
+we make a POST request to :
+```
+{{BASE_URL}}/api/token/refresh/
+```
+WITH 
+```
+example input
+{
+    "refresh":"example_refesh_token_that_is_valid"
+}
+```
+
+WHICH GIVES:
+{
+    "access":"example_access_token_for_the_next_60_minutes"
+}
+
+>[!NOTE]
+>THE REFRESH TOKEN WILL SPAN FOR ONLY 24 Hours, For Security Reasons
